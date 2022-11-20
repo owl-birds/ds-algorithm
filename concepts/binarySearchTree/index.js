@@ -284,7 +284,7 @@ var BinarySearchTree = /** @class */ (function () {
     BinarySearchTree.prototype.inOrder = function () {
         if (this.root === null)
             return null;
-        var result = new Array();
+        var result = [];
         var traverseinOrder = function (node) {
             node.left && traverseinOrder(node.left); // increasing
             // node.right && traverseinOrder(node.right); // decreasing
@@ -295,6 +295,32 @@ var BinarySearchTree = /** @class */ (function () {
             // if there is right child traverse right
         };
         traverseinOrder(this.root);
+        return result;
+    };
+    // 2. pre-order : root node first
+    BinarySearchTree.prototype.preOrder = function () {
+        if (this.root === null)
+            return null;
+        var result = [];
+        var traversePreOrder = function (node) {
+            result.push(node.getData());
+            node.left && traversePreOrder(node.left);
+            node.right && traversePreOrder(node.right);
+        };
+        traversePreOrder(this.root);
+        return result;
+    };
+    // 3. post-order : leaf node first
+    BinarySearchTree.prototype.postOrder = function () {
+        if (this.root === null)
+            return null;
+        var result = [];
+        var traversePostOrder = function (node) {
+            node.left && traversePostOrder(node.left);
+            node.right && traversePostOrder(node.right);
+            result.push(node.getData());
+        };
+        traversePostOrder(this.root);
         return result;
     };
     return BinarySearchTree;
@@ -424,5 +450,7 @@ console.log(bst3.findMinHeight());
 console.log(bst3.isBalanced());
 bst3.insertNumber(9000);
 console.log(bst3.inOrder());
+console.log(bst3.preOrder());
+console.log(bst3.postOrder());
 // console.log(bst3.cleanTree());
 // console.log(bst3.inOrder());

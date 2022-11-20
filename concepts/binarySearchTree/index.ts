@@ -263,8 +263,8 @@ class BinarySearchTree {
   // 1. in-order : begin on the most left node
   inOrder(): number[] | null {
     if (this.root === null) return null;
-    const result = new Array<number>();
-    const traverseinOrder = (node: MyNode) => {
+    const result: number[] = [];
+    const traverseinOrder = (node: MyNode): void => {
       node.left && traverseinOrder(node.left); // increasing
       // node.right && traverseinOrder(node.right); // decreasing
       // if there is left child traverse left
@@ -277,8 +277,36 @@ class BinarySearchTree {
     return result;
   }
   // 2. pre-order : root node first
+  preOrder(): number[] | null {
+    if (this.root === null) return null;
+    const result: number[] = [];
+    const traversePreOrder = (node: MyNode): void => {
+      result.push(node.getData());
+      node.left && traversePreOrder(node.left);
+      node.right && traversePreOrder(node.right);
+    };
+    traversePreOrder(this.root);
+    return result;
+  }
   // 3. post-order : leaf node first
+  postOrder(): number[] | null {
+    if (this.root === null) return null;
+    const result: number[] = [];
+    const traversePostOrder = (node: MyNode): void => {
+      node.left && traversePostOrder(node.left);
+      node.right && traversePostOrder(node.right);
+      result.push(node.getData());
+    };
+    traversePostOrder(this.root);
+    return result;
+  }
   // 4. level-order (breadth-first-search) : explore the node in any given level in the tree before going to the next level
+  levelOrder(): number[] | null {
+    if (this.root === null) return null;
+    const result: number[] = [];
+
+    return result;
+  }
 }
 const bst = new BinarySearchTree();
 console.log(bst);
@@ -417,5 +445,7 @@ console.log(bst3.findMinHeight());
 console.log(bst3.isBalanced());
 bst3.insertNumber(9000);
 console.log(bst3.inOrder());
+console.log(bst3.preOrder());
+console.log(bst3.postOrder());
 // console.log(bst3.cleanTree());
 // console.log(bst3.inOrder());
