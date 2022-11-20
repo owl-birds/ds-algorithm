@@ -201,11 +201,101 @@ var BinarySearchTree = /** @class */ (function () {
     BinarySearchTree.prototype.removeNumber = function (findData) {
         if (this.root === null)
             return false;
-        // const searchTree = (node: Mynode): boolean => {
-        //   if (findData === node.getData()) {
-        //   }
-        // };
-        return false;
+        var removeNode = function (node, findData) {
+            if (node === null)
+                return null;
+            if (findData === node.getData()) {
+                // dont have children wether its right or left
+                if (node.right === null && node.left === null) {
+                    return null;
+                }
+                // only left
+                if (node.right === null) {
+                    return node.left;
+                }
+                // only right
+                if (node.left === null) {
+                    return node.right;
+                }
+                // has  both children
+                var tempNode = node.right;
+                // we go to the right of the soon delted node
+                while (tempNode.left !== null) {
+                    tempNode = tempNode.left;
+                } // then we go the the most left from there
+                node.setData(tempNode.getData());
+                node.right = removeNode(node.right, tempNode.getData());
+                return node;
+            }
+            else if (findData > node.getData() && node.right !== null) {
+                node.right = removeNode(node.right, findData);
+                return node;
+            }
+            else if (findData < node.getData() && node.left !== null) {
+                node.left = removeNode(node.left, findData);
+                return node;
+            }
+            return null;
+        };
+        this.root = removeNode(this.root, findData);
+        return true;
+    };
+    // clean tree
+    BinarySearchTree.prototype.cleanTree = function () {
+        if (this.root === null)
+            return false;
+        this.root = null;
+        return true;
+    };
+    // bst height and traversal
+    // a balanced tree if the difference between the min
+    // height and the max heigth is at most 1 (<=1 difference)
+    BinarySearchTree.prototype.findMinHeight = function (node) {
+        if (node === void 0) { node = this.root; }
+        // find the first node that doesnt have two childrehm
+        // the distance from the root node to the leaf node
+        // without two children
+        if (!node)
+            return -1;
+        var left = this.findMinHeight(node.left);
+        var right = this.findMinHeight(node.right);
+        if (left < right)
+            return left + 1;
+        else
+            return right + 1;
+    };
+    BinarySearchTree.prototype.findMaxHeight = function (node) {
+        if (node === void 0) { node = this.root; }
+        if (!node)
+            return -1;
+        var left = this.findMaxHeight(node.left);
+        var right = this.findMaxHeight(node.right);
+        if (left > right)
+            return left + 1;
+        else
+            return right + 1;
+    };
+    BinarySearchTree.prototype.isBalanced = function (node) {
+        if (node === void 0) { node = this.root; }
+        return this.findMaxHeight(node) - this.findMinHeight(node) <= 1;
+    };
+    // traversal
+    // 1. in-order : begin on the most left node
+    BinarySearchTree.prototype.inOrder = function () {
+        if (this.root === null)
+            return null;
+        var result = new Array();
+        var traverseinOrder = function (node) {
+            node.left && traverseinOrder(node.left); // increasing
+            // node.right && traverseinOrder(node.right); // decreasing
+            // if there is left child traverse left
+            result.push(node.getData());
+            // node.left && traverseinOrder(node.left);
+            node.right && traverseinOrder(node.right);
+            // if there is right child traverse right
+        };
+        traverseinOrder(this.root);
+        return result;
     };
     return BinarySearchTree;
 }());
@@ -310,3 +400,29 @@ console.log(bst3.findBasedOnNumberRec(10));
 // console.log(bst3.findBasedOnNumberRec(2));
 // console.log(bst3.findBasedOnNumberRec(11));
 // console.log(bst3.findBasedOnNumberRec(100));
+console.log("testing remove node");
+console.log(bst3);
+console.log(bst3.hasNumberLoop(4));
+bst3.removeNumber(4);
+console.log(bst3.hasNumberLoop(4));
+// console.log(bst3);
+console.log(bst3.hasNumberLoop(10));
+bst3.removeNumber(10);
+// console.log(bst3);
+console.log(bst3.hasNumberLoop(10));
+console.log(bst3.findMaxRec());
+console.log(bst3);
+console.log(bst3.findMaxHeight());
+console.log(bst3.findMinHeight());
+// bst3.insertNumber(9); // bst cant have duplicates
+bst3.insertNumber(10);
+bst3.insertNumber(13);
+bst3.insertNumber(12);
+bst3.insertNumber(1);
+console.log(bst3.findMaxHeight());
+console.log(bst3.findMinHeight());
+console.log(bst3.isBalanced());
+bst3.insertNumber(9000);
+console.log(bst3.inOrder());
+// console.log(bst3.cleanTree());
+// console.log(bst3.inOrder());
