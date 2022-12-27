@@ -18,7 +18,7 @@ class MyNode {
     try {
       this.data = newData;
       return true;
-    } catch (error) {
+    } catch (error: any) {
       return {
         customMessage: "Error when setting new data to the node",
         jsMessage: error.message,
@@ -304,7 +304,20 @@ class BinarySearchTree {
   levelOrder(): number[] | null {
     if (this.root === null) return null;
     const result: number[] = [];
-
+    const queue: MyNode[] = []; // temp array
+    //
+    queue.push(this.root);
+    while (queue.length > 0) {
+      // taking the first item off the queue
+      let tempNode: MyNode = queue.shift()!; // queue always have values in this while loop
+      result.push(tempNode.getData());
+      if (tempNode.left !== null) {
+        queue.push(tempNode.left);
+      }
+      if (tempNode.right !== null) {
+        queue.push(tempNode.right);
+      }
+    }
     return result;
   }
 }
@@ -449,3 +462,16 @@ console.log(bst3.preOrder());
 console.log(bst3.postOrder());
 // console.log(bst3.cleanTree());
 // console.log(bst3.inOrder());
+const bst4: BinarySearchTree = new BinarySearchTree();
+bst4.insertNumber(9);
+bst4.insertNumber(4);
+bst4.insertNumber(17);
+bst4.insertNumber(3);
+bst4.insertNumber(6);
+bst4.insertNumber(22);
+bst4.insertNumber(5);
+bst4.insertNumber(20);
+console.log(bst4.inOrder());
+console.log(bst4.preOrder());
+console.log(bst4.postOrder());
+console.log(bst4.levelOrder());

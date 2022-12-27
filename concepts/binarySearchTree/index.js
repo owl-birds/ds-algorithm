@@ -323,6 +323,27 @@ var BinarySearchTree = /** @class */ (function () {
         traversePostOrder(this.root);
         return result;
     };
+    // 4. level-order (breadth-first-search) : explore the node in any given level in the tree before going to the next level
+    BinarySearchTree.prototype.levelOrder = function () {
+        if (this.root === null)
+            return null;
+        var result = [];
+        var queue = []; // temp array
+        //
+        queue.push(this.root);
+        while (queue.length > 0) {
+            // taking the first item off the queue
+            var tempNode = queue.shift(); // queue always have values in this while loop
+            result.push(tempNode.getData());
+            if (tempNode.left !== null) {
+                queue.push(tempNode.left);
+            }
+            if (tempNode.right !== null) {
+                queue.push(tempNode.right);
+            }
+        }
+        return result;
+    };
     return BinarySearchTree;
 }());
 var bst = new BinarySearchTree();
@@ -454,3 +475,16 @@ console.log(bst3.preOrder());
 console.log(bst3.postOrder());
 // console.log(bst3.cleanTree());
 // console.log(bst3.inOrder());
+var bst4 = new BinarySearchTree();
+bst4.insertNumber(9);
+bst4.insertNumber(4);
+bst4.insertNumber(17);
+bst4.insertNumber(3);
+bst4.insertNumber(6);
+bst4.insertNumber(22);
+bst4.insertNumber(5);
+bst4.insertNumber(20);
+console.log(bst4.inOrder());
+console.log(bst4.preOrder());
+console.log(bst4.postOrder());
+console.log(bst4.levelOrder());
