@@ -324,23 +324,39 @@ var BinarySearchTree = /** @class */ (function () {
         return result;
     };
     // 4. level-order (breadth-first-search) : explore the node in any given level in the tree before going to the next level
+    // levelOrder(): number[] | null {
     BinarySearchTree.prototype.levelOrder = function () {
+        /// level order modified to take all the value
+        /// from the tree
         if (this.root === null)
             return null;
+        // const result: number[] = [];
         var result = [];
+        // const queue: MyNode[] = []; // temp array
         var queue = []; // temp array
         //
         queue.push(this.root);
         while (queue.length > 0) {
             // taking the first item off the queue
             var tempNode = queue.shift(); // queue always have values in this while loop
-            result.push(tempNode.getData());
-            if (tempNode.left !== null) {
+            // result.push(tempNode.getData());
+            if (tempNode === null)
+                result.push(null);
+            else
+                result.push(tempNode.getData());
+            if (tempNode) {
+                if (tempNode.left === null && tempNode.right === null) {
+                    continue;
+                }
                 queue.push(tempNode.left);
-            }
-            if (tempNode.right !== null) {
                 queue.push(tempNode.right);
             }
+            // if (tempNode.left !== null) {
+            //   queue.push(tempNode.left);
+            // }
+            // if (tempNode.right !== null) {
+            //   queue.push(tempNode.right);
+            // }
         }
         return result;
     };
@@ -488,3 +504,11 @@ console.log(bst4.inOrder());
 console.log(bst4.preOrder());
 console.log(bst4.postOrder());
 console.log(bst4.levelOrder());
+var bst5 = new BinarySearchTree();
+bst5.insertNumber(4);
+bst5.insertNumber(2);
+bst5.insertNumber(6);
+bst5.insertNumber(5);
+bst5.insertNumber(3);
+console.log(bst5.preOrder());
+console.log(bst5.levelOrder());
