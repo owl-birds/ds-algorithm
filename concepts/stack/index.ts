@@ -1,6 +1,6 @@
 // making stack
 class Stack {
-  protected storage = {};
+  protected storage: { [idx: number]: number } = {};
   protected length: number = 0;
   push(newValue: any): void {
     this.length += 1;
@@ -16,7 +16,7 @@ class Stack {
   stackLength(): number {
     return this.length;
   }
-  peek(): void {
+  peek(): number {
     // peeking to the top of the stack
     return this.storage[this.length];
     console.log(`the top of the stack : ${this.storage[this.length]}`);
