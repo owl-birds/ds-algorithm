@@ -1,6 +1,6 @@
 # Recursion
 
--> the simp lest way: recursion is a function that calls itself untill the problem is solved.
+-> the simplest way: recursion is a function that calls itself untill the problem is solved.
 
 -> this usually involved what is refered as a "base case", A base case is the point in which the problem is solved at.
 
