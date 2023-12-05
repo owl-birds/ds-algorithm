@@ -1,0 +1,1 @@
+const quick_sort = () => {};
