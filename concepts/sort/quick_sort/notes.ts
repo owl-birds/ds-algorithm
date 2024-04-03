@@ -1,1 +1,0 @@
-const quick_sort = () => {};

@@ -12,7 +12,7 @@ LOW ---- HIGH
 0 ------- > N
 [ --------- ]
 
-we pick some element in the array (doesnt matter waht element is),
+we pick some element in the array ( doesnt matter waht element is),
 
 we pick p (pivot)
 we iterate the arr, the smaller/equal num are before the p and the bigger one is after the p
